@@ -28,8 +28,7 @@ NeoBundle 'mutewinter/vim-indent-guides'
 NeoBundle 'godlygeek/csapprox'
 NeoBundle 'Rykka/colorv.vim'
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'Lokaltog/vim-powerline', 'develop'
-NeoBundle 'osyo-manga/vim-powerline-unite-theme'
+NeoBundle 'bling/vim-airline'
 " Commands
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'tpope/vim-surround'
@@ -221,10 +220,14 @@ let g:vimfiler_force_overwrite_statusline = 0
 nnoremap <C-n> :VimFilerExplorer<CR>
 
 " ---------------
-" powerline
+" airline
 " ---------------
-let g:Powerline_symbols = 'unicode'
-let g:Powerline_cache_dir = expand('~/.vim/cache')
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
+let g:airline_linecolumn_prefix = '¶ '
+let g:airline#extensions#branch#symbol = '⎇ '
+let g:airline#extensions#paste#symbol = 'Þ'
+let g:airline#extensions#whitespace#symbol = 'Ξ'
 
 " ---------------
 " neocomplete.vim
