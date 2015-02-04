@@ -11,13 +11,14 @@
 set nocompatible
 
 set rtp+=~/.vim/bundle/neobundle.vim/
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc', { 'build' : { 'unix' : 'make -f make_unix.mak', }, }
 " Navigation
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'sjl/gundo.vim'
@@ -44,7 +45,7 @@ NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'mhinz/vim-startify'
 " Language Additions
 NeoBundle 'dag/vim2hs'
@@ -63,10 +64,12 @@ NeoBundle 'avakhov/vim-yaml'
 NeoBundle 'vim-scripts/DrawIt'
 NeoBundle 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git'
 NeoBundle 'Shougo/vinarise.vim'
+NeoBundle 'fatih/vim-go'
 " Libraries
 NeoBundle 'L9'
 NeoBundle 'tpope/vim-repeat'
 
+call neobundle#end()
 NeoBundleCheck
 filetype plugin indent on
 
@@ -129,6 +132,10 @@ set directory=~/.vim/tmp
 set smartcase
 set incsearch
 set hlsearch
+set synmaxcol=1024
+set ttyfast
+set ttyscroll=3
+set lazyredraw
 
 " Set leader to ,
 let mapleader=","
@@ -320,25 +327,6 @@ nmap <leader>t> :Tabularize /=>\zs<CR>
 vmap <leader>t> :Tabularize /=>\zs<CR>
 
 " ---------------
-" zencoding
-" ---------------
-let g:user_zen_settings = {
-      \  'php' : {
-      \    'extends' : 'html',
-      \    'filters' : 'c',
-      \  },
-      \  'xml' : {
-      \    'extends' : 'html',
-      \  },
-      \  'haml' : {
-      \    'extends' : 'html',
-      \  },
-      \  'eruby' : {
-      \    'extends' : 'html',
-      \  },
-      \}
-
-" ---------------
 " vim-javascript
 " ---------------
 let g:html_indent_inctags = "body,head,tbody"
@@ -364,7 +352,6 @@ let g:haskell_hsp = 0
 " syntastic
 " --------------
 let g:syntastic_ignore_files = ['^/usr/include/']
-let g:syntastic_c_config_file = '.syntastic_c_config'
 let g:syntastic_c_check_header = 1
 let g:syntastic_c_compiler = 'gcc'
-let g:syntastic_c_compiler_options = '-std=c99 -Wall'
+let g:syntastic_c_compiler_options = '-std=gnu99 -Wall'

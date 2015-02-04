@@ -51,6 +51,7 @@ myWorkspaces = ["1:Term","2:Web","3:Code","4:VM","5:Music","6:Video","7:Chat","8
 myManageHook = composeAll
     [ className =? "Firefox"                  --> doShift "2:Web"
     , className =? "jetbrains-android-studio" --> doShift "3:Code"
+    , className =? "Eclipse"                  --> doShift "3:Code"
     , className =? "VirtualBox"               --> doShift "4:VM"
     , stringProperty "WM_NAME" =? "ncmpc"     --> doShift "5:Music"
     , className =? "MPlayer"                  --> doShift "6:Video"
@@ -58,6 +59,7 @@ myManageHook = composeAll
     , className =? "Skype"                    --> doShift "7:Chat"
     , className =? "Gimp"                     --> doShift "8:Art"
     , className =? "Bitcoin-qt"               --> doShift "9:BTC"
+    , className =? "Screenkey"                --> doIgnore
     , isFullscreen                            --> (doF W.focusDown <+> doFullFloat)]
 
 

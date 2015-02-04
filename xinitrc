@@ -1,6 +1,9 @@
 #!/bin/sh
 
-PATH=~/.bin:~/.xmonad/:~/.cabal/bin:$PATH
+export ANDROID=/opt/android/
+export ANDROID_NDK=$ANDROID/ndk/
+export ANDROID_SDK=$ANDROID/sdk/
+export PATH=~/.bin:~/.xmonad/:~/.cabal/bin:$ANDROID_NDK:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools:$ANDROID/studio/bin:/opt/eclipse:$PATH
 
 /usr/lib/systemd/systemd --user &
 
@@ -27,9 +30,7 @@ tray &
 nm-applet &
 parcellite &
 volumeicon &
-bitcoin-qt &
 terminator &
-firefox-nightly &
 
 # Input method
 export GTK_IM_MODULE=fcitx

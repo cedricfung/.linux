@@ -46,7 +46,6 @@ function t()
   dig "$*.jianbing.org" +short txt | perl -pe's/\\(\d{1,3})/chr $1/eg; s/(^"|"$)//g'
 }
 
-
 ########################
 # variables
 ########################
@@ -56,15 +55,17 @@ export CTEST_OUTPUT_ON_FAILURE=true
 
 # Android development
 export ANDROID=/opt/android/
-export ANDROID_NDK=$ANDROID/ndk/
+export ANDROID_NDK=$ANDROID/ndk/android-ndk-r10c/
 export ANDROID_SDK=$ANDROID/sdk/
 export ANDROID_SOURCE=$HOME/OSP/Android/
+export OUT_DIR_COMMON_BASE=$HOME/OSP/build/Android/
 export NDK_CCACHE=ccache
 export USE_CCACHE=1
 
-export PATH=~/.bin:~/.cabal/bin:$ANDROID_NDK:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools:$ANDROID/bin/:$PATH
-export NODE_PATH=$NODE_PATH:/usr/lib/node_modules/
+export FLEX=/opt/apache-flex
 
+export PATH=~/.bin:~/.cabal/bin:$ANDROID_NDK:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools:/opt/eclipse:/opt/android/studio/bin:$PATH:$FLEX/bin/
+export NODE_PATH=$NODE_PATH:/usr/lib/node_modules/
 
 ########################
 # aliases
@@ -74,7 +75,7 @@ alias v='vim'
 alias vi='vim'
 
 alias ls='ls --color=auto'
-alias ll='ls -AlF'
+alias ll='ls++'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -83,15 +84,28 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 alias sqlite='sqlite3 -column -header'
-alias gcc='gcc -std=c99 -march=native'
+alias gcc='gcc -std=gnu99 -march=native'
 alias ghc='ghc -Wall'
 alias rscp='rsync -v -P -e ssh'
 alias clip='xclip -sel clip'
 
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias http="ruby -rwebrick -e'WEBrick::HTTPServer.new(:Port => 3000, :DocumentRoot => Dir.pwd).start'"
-
 
 # other custom configs
 [ -f ~/.bash_local ] && . ~/.bash_local
+
+
+export GOPATH=$HOME/Code/Go
+export PATH=$PATH:$HOME/.rvm/bin:$GOPATH/bin
+
+
+. ~/.aws
+
+export CLOUDSDK_PYTHON_SITEPACKAGES=1
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/opt/google-cloud-sdk/google-cloud-sdk/path.bash.inc'
+
+# The next line enables bash completion for gcloud.
+source '/opt/google-cloud-sdk/google-cloud-sdk/completion.bash.inc'
