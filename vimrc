@@ -15,17 +15,24 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc', { 'build' : { 'unix' : 'make -f make_unix.mak', }, }
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
 " Navigation
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'spiiph/vim-space'
 NeoBundle 'Lokaltog/vim-easymotion'
 " UI Additions
-NeoBundle 'mutewinter/vim-indent-guides'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'godlygeek/csapprox'
 NeoBundle 'Rykka/colorv.vim'
 NeoBundle 'altercation/vim-colors-solarized'
@@ -43,6 +50,7 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'gregsexton/MatchTag'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'mattn/emmet-vim'
@@ -50,11 +58,13 @@ NeoBundle 'mhinz/vim-startify'
 " Language Additions
 NeoBundle 'dag/vim2hs'
 NeoBundle 'vecio/lispp.vim'
-NeoBundle 'https://bitbucket.org/kovisoft/slimv', { 'type': 'hg' }
+NeoBundle 'kovisoft/slimv'
 NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
+NeoBundle 'fatih/vim-go'
 NeoBundle 'tpope/vim-haml'
 NeoBundle 'vim-pandoc/vim-pandoc'
+NeoBundle 'vim-pandoc/vim-pandoc-syntax'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'leshill/vim-json'
 NeoBundle 'othree/html5.vim'
@@ -64,7 +74,7 @@ NeoBundle 'avakhov/vim-yaml'
 NeoBundle 'vim-scripts/DrawIt'
 NeoBundle 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git'
 NeoBundle 'Shougo/vinarise.vim'
-NeoBundle 'fatih/vim-go'
+NeoBundle 'mxw/vim-jsx'
 " Libraries
 NeoBundle 'L9'
 NeoBundle 'tpope/vim-repeat'
@@ -132,10 +142,6 @@ set directory=~/.vim/tmp
 set smartcase
 set incsearch
 set hlsearch
-set synmaxcol=1024
-set ttyfast
-set ttyscroll=3
-set lazyredraw
 
 " Set leader to ,
 let mapleader=","
@@ -229,12 +235,17 @@ nnoremap <C-n> :VimFilerExplorer<CR>
 " ---------------
 " airline
 " ---------------
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_powerline_fonts=1
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '◀'
-let g:airline_linecolumn_prefix = '¶ '
-let g:airline#extensions#branch#symbol = '⎇ '
-let g:airline#extensions#paste#symbol = 'Þ'
-let g:airline#extensions#whitespace#symbol = 'Ξ'
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '¶ '
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.whitespace = 'Ξ'
 
 " ---------------
 " neocomplete.vim
@@ -335,6 +346,18 @@ let g:html_indent_sciript1 = "inc"
 let g:html_indent_style1 = "inc"
 
 " ---------------
+" golang
+" ---------------
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
+" ---------------
 " slimv
 " mit-scheme
 " ---------------
@@ -352,6 +375,7 @@ let g:haskell_hsp = 0
 " syntastic
 " --------------
 let g:syntastic_ignore_files = ['^/usr/include/']
+let g:syntastic_c_config_file = '.syntastic_c_config'
 let g:syntastic_c_check_header = 1
 let g:syntastic_c_compiler = 'gcc'
-let g:syntastic_c_compiler_options = '-std=gnu99 -Wall'
+let g:syntastic_c_compiler_options = '-std=c99 -Wall'
