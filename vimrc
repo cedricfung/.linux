@@ -72,7 +72,6 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'avakhov/vim-yaml'
 NeoBundle 'vim-scripts/DrawIt'
-NeoBundle 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git'
 NeoBundle 'Shougo/vinarise.vim'
 NeoBundle 'mxw/vim-jsx'
 " Libraries
@@ -305,10 +304,10 @@ endfunction
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " neosnippet.vim"
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets'
-imap <silent><C-k> <Plug>(neosnippet_expand_or_jump)
-smap <silent><C-k> <Plug>(neosnippet_expand_or_jump)
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 " ---------------
 " gundo.vim
